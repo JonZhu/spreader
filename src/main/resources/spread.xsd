@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.juncke.org/spread" xmlns:tns="http://www.juncke.org/spread" elementFormDefault="qualified">
+
+    <element name="spread" type="tns:spreadType"></element>
+    
+    <complexType name="spreadType">
+    	<sequence>
+    		<element name="content" type="string"></element>
+    		<element name="triger" type="tns:trigerType"></element>
+    	</sequence>
+    	<attribute name="name" type="string"></attribute>
+    	<attribute name="desc" type="string"></attribute>
+    </complexType>
+    
+    <complexType name="trigerType"></complexType>
+</schema>

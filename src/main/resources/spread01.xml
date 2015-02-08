@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spreads group="111111">
+	<spread id="ssssss" cron="10 * * * *">
+		<content>
+		内容
+		</content>
+		
+		<delivers>d1</delivers>
+	</spread>
+	
+	
+	<deliver id="d1" class="com.juncke.deliver.impl.HttpDeliver">
+		<config>
+			<request id="request001" url="aaa.html" method="post">
+				<headers>
+					<header name="header1">www</header>
+					<header name="userAgent">chrome</header>
+				</headers>
+				<cookies>
+					<cookie name="username"></cookie>
+				</cookies>
+				<params>
+					<param name="p1">${content}</param>
+				</params>
+			</request>
+		</config>
+	</deliver>
+	
+</spreads>

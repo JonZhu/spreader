@@ -11,7 +11,7 @@
 	
 	<deliver id="d1" class="com.juncke.deliver.impl.HttpDeliver">
 		<config>
-			<var name="userId">id${ts}</var>
+			<var name="userId">id_${ts}</var>
 			
 			<request id="request001" url="aaa.html" method="post">
 				<headers>

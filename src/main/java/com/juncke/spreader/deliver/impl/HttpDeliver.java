@@ -54,6 +54,9 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 			return IDeliver.RESULT_SUCCESS;
 		}
 		
+		final ObjScope objScope = new ObjScope(null); // 对象变量
+		objScope.setObj("content", content);
+		
 		CloseableHttpClient client = HttpClients.createDefault();
 		try {
 			while (configChildIter.hasNext()) {
@@ -61,9 +64,9 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 				
 				String eleName = childEle.getName();
 				if ("var".equals(eleName)) {
-					executeVar(childEle);
+					executeVar(objScope, childEle);
 				} else if ("request".equals(eleName)) {
-					executeRequest(client, childEle, content);
+					executeRequest(objScope, client, childEle);
 				} else if ("sleep".equals(eleName)) {
 					executeSleep(childEle);
 				} else {
@@ -108,7 +111,7 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 	 * @author zhujun
 	 * @date 2015-2-9
 	 */
-	private void executeRequest(CloseableHttpClient client, Element childEle, String content) throws Exception {
+	private void executeRequest(final ObjScope objScope, CloseableHttpClient client, Element childEle) throws Exception {
 		String method = childEle.attributeValue("method", "get");
 		HttpRequestBase request = null;
 		if ("POST".equalsIgnoreCase(method)) {
@@ -119,7 +122,7 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 			if (paramEles != null && !paramEles.isEmpty()) {
 				List<NameValuePair> paramList = new ArrayList<NameValuePair>();
 				for (Element paramEle : paramEles) {
-					paramList.add(new BasicNameValuePair(paramEle.attributeValue("name"), replcaceContent(paramEle.getText(), content)));
+					paramList.add(new BasicNameValuePair(paramEle.attributeValue("name"), ExpressUtil.eval(paramEle.getText(), objScope)));
 				}
 				httpPost.setEntity(new UrlEncodedFormEntity(paramList));
 			}
@@ -153,9 +156,14 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 	 * @author zhujun
 	 * @date 2015-2-9
 	 */
-	private void executeVar(Element varEle) {
-		// TODO Auto-generated method stub
-		
+	private void executeVar(final ObjScope objScope, Element varEle) {
+		String express = varEle.getText();
+		if (StringUtils.isNotEmpty(express)) {
+			
+			String name = varEle.attributeValue("name");
+			String value = ExpressUtil.eval(express, objScope);
+			objScope.setObj(name, value);
+		}
 	}
 
 

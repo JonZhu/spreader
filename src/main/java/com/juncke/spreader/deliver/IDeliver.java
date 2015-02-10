@@ -22,6 +22,8 @@ public interface IDeliver {
 	 */
 	int RESULT_FAIL = 1;
 	
+	String getId();
+	
 	/**
 	 * 分发内容
 	 * @param content

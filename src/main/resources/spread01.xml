@@ -11,6 +11,8 @@
 	
 	<deliver id="d1" class="com.juncke.deliver.impl.HttpDeliver">
 		<config>
+			<var name="userId">id_${ts}</var>
+			
 			<request id="request001" url="aaa.html" method="post">
 				<headers>
 					<header name="header1">www</header>
@@ -23,6 +25,22 @@
 					<param name="p1">${content}</param>
 				</params>
 			</request>
+			
+			<sleep>2000</sleep>
+			
+			<request id="request002" url="bbb.html" method="post">
+				<headers>
+					<header name="header1">www</header>
+					<header name="userAgent">chrome</header>
+				</headers>
+				<cookies>
+					<cookie name="username"></cookie>
+				</cookies>
+				<params>
+					<param name="p1">${content}</param>
+				</params>
+			</request>
+			
 		</config>
 	</deliver>
 	

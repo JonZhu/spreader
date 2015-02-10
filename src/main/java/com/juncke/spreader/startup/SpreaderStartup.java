@@ -12,9 +12,12 @@ import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.dom4j.DocumentException;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.juncke.spreader.spread.SpreadGroup;
 
@@ -27,6 +30,8 @@ import com.juncke.spreader.spread.SpreadGroup;
  */
 public class SpreaderStartup {
 
+	private final static Logger LOG = LoggerFactory.getLogger(SpreaderStartup.class);
+	
 	/**
 	 * @param args
 	 */
@@ -134,8 +139,19 @@ public class SpreaderStartup {
 	 * @param spreadsFile
 	 */
 	private static void startUpSpreads(Scheduler scheduler, File spreadsFile) {
-		SpreadGroup spreadGroup = new SpreadGroup(spreadsFile);
-		spreadGroup.schedule(scheduler);
+		SpreadGroup spreadGroup = null;
+		try {
+			spreadGroup = new SpreadGroup(spreadsFile);
+		} catch (DocumentException e) {
+			LOG.error("初始化SpreadGroup出错", e);
+			return;
+		}
+		
+		try {
+			spreadGroup.schedule(scheduler);
+		} catch (SchedulerException e) {
+			LOG.error("Schedule出错", e);
+		}
 	}
 
 }

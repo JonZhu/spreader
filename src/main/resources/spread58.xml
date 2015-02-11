@@ -8,7 +8,6 @@
 		<delivers>d1</delivers>
 	</spread>
 	
-	
 	<deliver id="d1" class="com.juncke.spreader.deliver.impl.HttpDeliver">
 		<config>
 			<var name="userId">id_${ts}</var>
@@ -16,9 +15,6 @@
 			
 			<!-- 注册 -->
 			<request id="request001" url="https://passport.58.com/doregister" method="post">
-				<cookies>
-					<cookie name="username"></cookie>
-				</cookies>
 				<params>
 					<param name="cd">1493</param>
 					<param name="chkagreement">on</param>
@@ -35,8 +31,49 @@
 				<param>${userId}</param>
 				<param>${password}</param>
 			</log>
+			<sleep>2000</sleep>
 			
-			<sleep>20000</sleep>
+			<log message="打开发布页面, ts:{}">
+				<param>${ts}</param>
+			</log>
+			<request url="http://post.58.com/102/23087/s5?PGTID=14236484017540.2295981827051724&amp;ClickID=1"></request>
+			<sleep>2000</sleep>
+			
+			<log message="开始发布58信息, ts:{}">
+				<param>${ts}</param>
+			</log>
+			<request id="publishInfoReq" url="http://post.58.com/102/23087/s5?PGTID=14236452462480.5457944152348675&amp;ClickID=1" method="post">
+				<params>
+					<param name="Title">驾校收人 3000 !!!</param>
+					<param name="ObjectType">656331</param>
+					<param name="newdizhi">11487|11984</param>
+					<param name="jiazhaotype">617390</param>
+					<param name="jiazhaotype">617391</param>
+					<param name="jiazhaotype">617392</param>
+					<param name="jiazhaotype">617393</param>
+					<param name="jiazhaotype">617394</param>
+					<param name="banbie">617405</param>
+					<param name="banbie">617409</param>
+					<param name="banbie">617407</param>
+					<param name="Content">驾校收人 3000, 驾校收人 3000, 驾校收人 3000</param>
+					<param name="goblianxiren">李先生</param>
+					<param name="IsBiz">1</param>
+					<param name="Phone">13867548738</param>
+					<param name="localArea">11487</param>
+					<param name="localDiduan">11984</param>
+					<param name="dizhi">交安驾校</param>
+					<param name="isstartshopcheck">0</param>
+					<param name="hidPostParam">0</param>
+					<param name="qqtalk">0</param>
+					<param name="iqas_mcresult">1232127406977842533110903607</param>
+					<param name="gobalsokey">学车|驾校报名|学车报名|驾校招生|C1(小型手动挡汽车)|C2(小型自动挡汽车)|B1(中型客车)|B2(大型货车)|C3(低速载货汽车)|全周计时班|周末班|贵宾班|交安驾校</param>
+					<param name="hiddenTextBoxJoinValue">李先生:交安驾校</param>
+					<param name="xiaobao_option">0</param>
+				</params>
+			</request>
+			<log message="发布58信息完毕, ts:{}">
+				<param>${ts}</param>
+			</log>
 			
 		</config>
 	</deliver>

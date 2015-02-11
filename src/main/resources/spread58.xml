@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spreads group="111111">
-	<spread id="ssssss" cron="10 * * * *">
+	<spread id="ssssss" cron="*/10 * * * * ?">
 		<content>
 		内容
 		</content>
@@ -9,22 +9,25 @@
 	</spread>
 	
 	
-	<deliver id="d1" class="com.juncke.deliver.impl.HttpDeliver">
+	<deliver id="d1" class="com.juncke.spreader.deliver.impl.HttpDeliver">
 		<config>
 			<var name="userId">id_${ts}</var>
 			<var name="password">www456mmm</var>
 			
 			<!-- 注册 -->
-			<request id="request001" url="aaa.html" method="post">
-				<headers>
-					<header name="header1">www</header>
-					<header name="userAgent">chrome</header>
-				</headers>
+			<request id="request001" url="https://passport.58.com/doregister" method="post">
 				<cookies>
 					<cookie name="username"></cookie>
 				</cookies>
 				<params>
-					<param name="p1">${content}</param>
+					<param name="cd">1493</param>
+					<param name="chkagreement">on</param>
+					<param name="cpassword">${password}</param>
+					<param name="mcresult">undefined</param>
+					<param name="nickName">${userId}</param>
+					<param name="password">${password}</param>
+					<param name="txtemail">${userId}@qq.com</param>
+					<param name="ptk">1dcc166f6e19467ab88b46dbe833243a</param>
 				</params>
 			</request>
 			
@@ -33,20 +36,7 @@
 				<param>${password}</param>
 			</log>
 			
-			<sleep>2000</sleep>
-			
-			<request id="request002" url="bbb.html" method="post">
-				<headers>
-					<header name="header1">www</header>
-					<header name="userAgent">chrome</header>
-				</headers>
-				<cookies>
-					<cookie name="username"></cookie>
-				</cookies>
-				<params>
-					<param name="p1">${content}</param>
-				</params>
-			</request>
+			<sleep>20000</sleep>
 			
 		</config>
 	</deliver>

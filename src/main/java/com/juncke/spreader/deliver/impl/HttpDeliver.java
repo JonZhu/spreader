@@ -10,6 +10,7 @@ import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.Consts;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -156,7 +157,7 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 				for (Element paramEle : paramEles) {
 					paramList.add(new BasicNameValuePair(paramEle.attributeValue("name"), ExpressUtil.eval(paramEle.getText(), objScope)));
 				}
-				httpPost.setEntity(new UrlEncodedFormEntity(paramList));
+				httpPost.setEntity(new UrlEncodedFormEntity(paramList, Consts.UTF_8));
 			}
 			
 			request = httpPost;
@@ -179,10 +180,12 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 		
 		CloseableHttpResponse response = client.execute(request);
 		LOG.debug("http response status: {}", response.getStatusLine());
-		HttpEntity responseEntity = response.getEntity();
-		if (responseEntity != null && LOG.isDebugEnabled()) {
-			LOG.debug(EntityUtils.toString(responseEntity));
-		}
+		
+//		// show response
+//		HttpEntity responseEntity = response.getEntity();
+//		if (responseEntity != null && LOG.isDebugEnabled()) {
+//			LOG.debug(EntityUtils.toString(responseEntity));
+//		}
 		IOUtils.closeQuietly(response);
 		
 	}

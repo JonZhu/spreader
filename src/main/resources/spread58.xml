@@ -42,7 +42,7 @@
 			<log message="开始发布58信息, ts:{}">
 				<param>${ts}</param>
 			</log>
-			<request id="publishInfoReq" url="http://post.58.com/102/23087/s5?PGTID=14236452462480.5457944152348675&amp;ClickID=1" method="post">
+			<request id="publishInfoReq" url="http://post.58.com/102/23087/s5/submit?rand=0.2295981827051724" method="post">
 				<params>
 					<param name="Title">驾校收人 3000 !!!</param>
 					<param name="ObjectType">656331</param>

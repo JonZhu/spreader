@@ -82,9 +82,9 @@ public class ExpressUtil {
 		}
 		
 		Object value = objScope.getObj(subExp);
-		if (LOG.isDebugEnabled()) {
-			LOG.debug("子表达式: {}, value: {}", subExp, value);
-		}
+//		if (LOG.isDebugEnabled()) {
+//			LOG.debug("子表达式: {}, value: {}", subExp, value);
+//		}
 		
 		return  value == null ? "" : value.toString();
 	}

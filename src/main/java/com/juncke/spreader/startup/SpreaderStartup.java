@@ -69,6 +69,7 @@ public class SpreaderStartup {
 		Scheduler scheduler = null;
 		try {
 			scheduler = getScheduler();
+			scheduler.start();
 		} catch (SchedulerException e) {
 			System.out.println("Create scheduler error");
 			e.printStackTrace();

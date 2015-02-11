@@ -106,7 +106,7 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 				paramList.add(ExpressUtil.eval(paramEle.getText(), objScope));
 			}
 			
-			logParams = paramEles.toArray();
+			logParams = paramList.toArray();
 		}
 		
 		LOG.info(message, logParams);

@@ -69,6 +69,8 @@ public class ExpressUtil {
 	}
 
 	/**
+	 * 计算子表达式值
+	 * 
 	 * @param subExp
 	 * @param objScope
 	 * @return

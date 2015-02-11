@@ -69,6 +69,8 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 					executeRequest(objScope, client, childEle);
 				} else if ("sleep".equals(eleName)) {
 					executeSleep(childEle);
+				} else if ("log".equals(eleName)) {
+					executeLog(objScope, childEle);
 				} else {
 					LOG.warn("http deliver不支持 {} 操作", eleName);
 				}
@@ -81,6 +83,33 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 		}
 		
 		return IDeliver.RESULT_SUCCESS;
+	}
+
+
+	/**
+	 * @param objScope
+	 * @param logEle
+	 * @author zhujun
+	 * @date 2015-2-11
+	 */
+	private void executeLog(ObjScope objScope, Element logEle) {
+		String message = logEle.attributeValue("message");
+		if (StringUtils.isEmpty(message)) {
+			return;
+		}
+		
+		List<Element> paramEles = logEle.elements("param");
+		Object[] logParams = null;
+		if (paramEles != null && !paramEles.isEmpty()) {
+			List<Object> paramList = new ArrayList<>();
+			for (Element paramEle : paramEles) {
+				paramList.add(ExpressUtil.eval(paramEle.getText(), objScope));
+			}
+			
+			logParams = paramEles.toArray();
+		}
+		
+		LOG.info(message, logParams);
 	}
 
 

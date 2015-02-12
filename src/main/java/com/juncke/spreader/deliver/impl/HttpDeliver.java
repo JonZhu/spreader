@@ -11,7 +11,6 @@ import java.util.List;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Consts;
-import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -140,18 +139,19 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 	/**
 	 * 执行http请求
 	 * 
-	 * @param childEle
+	 * @param requestEle
 	 * @author zhujun
 	 * @date 2015-2-9
 	 */
-	private void executeRequest(final ObjScope objScope, CloseableHttpClient client, Element childEle) throws Exception {
-		String method = childEle.attributeValue("method", "get");
+	private void executeRequest(final ObjScope objScope, CloseableHttpClient client, Element requestEle) throws Exception {
+		String reqId = requestEle.attributeValue("id");
+		String method = requestEle.attributeValue("method", "get");
 		HttpRequestBase request = null;
 		if ("POST".equalsIgnoreCase(method)) {
 			HttpPost httpPost = new HttpPost();
 			
 			// post param
-			List<Element> paramEles = childEle.selectNodes("params/param");
+			List<Element> paramEles = requestEle.selectNodes("params/param");
 			if (paramEles != null && !paramEles.isEmpty()) {
 				List<NameValuePair> paramList = new ArrayList<NameValuePair>();
 				for (Element paramEle : paramEles) {
@@ -165,10 +165,10 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 			request = new HttpGet();
 		}
 		
-		request.setURI(new URI(childEle.attributeValue("url")));
+		request.setURI(new URI(requestEle.attributeValue("url")));
 		
 		// header
-		List<Element> headerEles = childEle.selectNodes("headers/header");
+		List<Element> headerEles = requestEle.selectNodes("headers/header");
 		if (headerEles != null && !headerEles.isEmpty()) {
 			for (Element headerEle : headerEles) {
 				request.addHeader(headerEle.attributeValue("name"), headerEle.getText());
@@ -181,11 +181,10 @@ public class HttpDeliver extends AbstractDeliver implements IDeliver {
 		CloseableHttpResponse response = client.execute(request);
 		LOG.debug("http response status: {}", response.getStatusLine());
 		
-//		// show response
-//		HttpEntity responseEntity = response.getEntity();
-//		if (responseEntity != null && LOG.isDebugEnabled()) {
-//			LOG.debug(EntityUtils.toString(responseEntity));
-//		}
+		if (StringUtils.isNotEmpty(reqId)) {
+			// save response
+			objScope.setObj(reqId + "_response", EntityUtils.toString(response.getEntity()));
+		}
 		IOUtils.closeQuietly(response);
 		
 	}

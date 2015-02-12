@@ -10,7 +10,7 @@
 	
 	<deliver id="d1" class="com.juncke.spreader.deliver.impl.HttpDeliver">
 		<config>
-			<var name="userId">id_${ts}</var>
+			<var name="userId">ID${ts}</var>
 			<var name="password">www456mmm</var>
 			
 			<!-- 注册 -->
@@ -36,13 +36,16 @@
 			<log message="打开发布页面, ts:{}">
 				<param>${ts}</param>
 			</log>
-			<request url="http://post.58.com/102/23087/s5?PGTID=14236484017540.2295981827051724&amp;ClickID=1"></request>
+			<request id="publishPage" url="http://post.58.com/102/23087/s5"></request>
+			<log message="发布页面响应: {}">
+				<param>${publishPage_response}</param>
+			</log>
 			<sleep>2000</sleep>
 			
 			<log message="开始发布58信息, ts:{}">
 				<param>${ts}</param>
 			</log>
-			<request id="publishInfoReq" url="http://post.58.com/102/23087/s5/submit?rand=0.2295981827051724" method="post">
+			<request id="publishInfoReq" url="http://post.58.com/102/23087/s5/submit" method="post">
 				<params>
 					<param name="Title">驾校收人 3000 !!!</param>
 					<param name="ObjectType">656331</param>
@@ -69,10 +72,16 @@
 					<param name="gobalsokey">学车|驾校报名|学车报名|驾校招生|C1(小型手动挡汽车)|C2(小型自动挡汽车)|B1(中型客车)|B2(大型货车)|C3(低速载货汽车)|全周计时班|周末班|贵宾班|交安驾校</param>
 					<param name="hiddenTextBoxJoinValue">李先生:交安驾校</param>
 					<param name="xiaobao_option">0</param>
+					<param name="__post_gsxw">editor,editor,mouseout,1423707870761,-,436,496,-11,74,480,96,447,422;editor,editor,mouseover,1423707877511,-,447,447,1,25,480,96,447,422;Title,input,mouseover,1423707878127,-,497,272,51,19,336,22,447,254;Title,input,focus,1423707878435,-,0,0,-447,-254,336,22,447,254;Title,input,click,1423707878508,-,492,256,46,3,336,22,447,254;Title,input,click,1423707878970,-,492,256,46,3,336,22,447,254;Title,input,click,1423707879536,-,492,256,46,3,336,22,447,254;Title,input,mouseout,1423707879911,-,493,276,47,23,336,22,447,254;Title,input,blur,1423707881489,-,0,0,-447,-254,336,22,447,254;editor,editor,focus,1423707913680,-,0,102,-447,-320,480,96,447,422;editor,editor,click,1423707913718,-,560,479,114,57,480,96,447,422;editor,editor,click,1423707914373,-,561,475,115,53,480,96,447,422;editor,editor,click,1423707914558,-,561,475,115,53,480,96,447,422;editor,editor,click,1423707915133,-,501,467,55,45,480,96,447,422;editor,editor,click,1423707915317,-,501,467,55,45,480,96,447,422;editor,editor,blur,1423707917869,-,0,102,-447,-320,480,96,447,422;Title,input,focus,1423707917891,-,0,102,-447,-152,336,22,447,254;Title,input,click,1423707918461,-,369,272,-78,19,336,22,447,254;Title,input,blur,1423707919486,-,0,102,-447,-152,336,22,447,254;editor,editor,focus,1423707919498,-,0,102,-447,-320,480,96,447,422;page,26510,23087,1663,1157,1423707870651,1423707967027,2;lsid%3D1-14222392997212534570634491%23%231m-1232357694mm1423469523381%23%231m-1232357694mm1423648679217%23%231m-1232357694m29234940551939m1423648690462%23%231m-1232357694m29250086015747m1423707879970</param>
+					<param name="HiddenForPara">6465:ObjectType|9090:shenfen|9091:xingbie|9013:jiazhaotype|9014:banbie</param>
+					<param name="gobquzhi">
+						<![CDATA[objecttype=%E9%A9%BE%E6%A0%A1%E6%8B%9B%E7%94%9F&jiazhaotype=C1(%E5%B0%8F%E5%9E%8B%E6%89%8B%E5%8A%A8%E6%8C%A1%E6%B1%BD%E8%BD%A6)%2CC2(%E5%B0%8F%E5%9E%8B%E8%87%AA%E5%8A%A8%E6%8C%A1%E6%B1%BD%E8%BD%A6)%2CC3(%E4%BD%8E%E9%80%9F%E8%BD%BD%E8%B4%A7%E6%B1%BD%E8%BD%A6)%2CC4(%E4%B8%89%E8%BD%AE%E6%B1%BD%E8%BD%A6)&banbie=%E5%B9%B3%E6%97%A5%E8%AE%A1%E6%97%B6%E7%8F%AD%2C%E5%85%A8%E5%91%A8%E8%AE%A1%E6%97%B6%E7%8F%AD%2C%E5%91%A8%E6%9C%AB%E7%8Fobjecttype=%E9%A9%BE%E6%A0%A1%E6%8B%9B%E7%94%9F&jiazhaotype=C1(%E5%B0%8F%E5%9E%8B%E6%89%8B%E5%8A%A8%E6%8C%A1%E6%B1%BD%E8%BD%A6)%2CC2(%E5%B0%8F%E5%9E%8B%E8%87%AA%E5%8A%A8%E6%8C%A1%E6%B1%BD%E8%BD%A6)%2CC3(%E4%BD%8E%E9%80%9F%E8%BD%BD%E8%B4%A7%E6%B1%BD%E8%BD%A6)%2CC4(%E4%B8%89%E8%BD%AE%E6%B1%BD%E8%BD%A6)&banbie=%E5%B9%B3%E6%97%A5%E8%AE%A1%E6%97%B6%E7%8F%AD%2C%E5%85%A8%E5%91%A8%E8%AE%A1%E6%97%B6%E7%8F%AD%2C%E5%91%A8%E6%9C%AB%E7%8F%ADecttype=%E9%A9%BE%E6%A0%A1%E6%8B%9B%E7%94%9F&jiazhaotype=C1(%E5%B0%8F%E5%9E%8B%E6%89%8B%E5%8A%A8%E6%8C%A1%E6%B1%BD%E8%BD%A6)%2CC2(%E5%B0%8F%E5%9E%8B%E8%87%AA%E5%8A%A8%E6%8C%A1%E6%B1%BD%E8%BD%A6)%2CC3(%E4%BD%8E%E9%80%9F%E8%BD%BD%E8%B4%A7%E6%B1%BD%E8%BD%A6)%2CC4(%E4%B8%89%E8%BD%AE%E6%B1%BD%E8%BD%A6)&banbie=%E5%B9%B3%E6%97%A5%E8%AE%A1%E6%97%B6%E7%8F%AD%2C%E5%85%A8%E5%91%A8%E8%AE%A1%E6%97%B6%E7%8F%AD%2C%E5%91%A8%E6%9C%AB%E7%8F%AD]]>
+					</param>
 				</params>
 			</request>
-			<log message="发布58信息完毕, ts:{}">
+			<log message="发布58信息完毕, ts:{}, response: {}">
 				<param>${ts}</param>
+				<param>${publishInfoReq_response}</param>
 			</log>
 			
 		</config>

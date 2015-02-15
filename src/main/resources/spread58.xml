@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <spreads group="111111">
-	<spread id="ssssss" cron="*/10 * * * * ?">
+	<spread id="ssssss" cron="10 * * * * ?">
 		<content>
-		内容
+		<![CDATA[
+		驾校收人3000, 驾校收人3000, 驾校收人3000, 驾校收人3000, 驾校收人3000, 驾校收人3000, 驾校收人3000, 驾校收人3000
+		]]>
 		</content>
 		
-		<delivers>d1</delivers>
+		<delivers>cd58jiaxiao</delivers>
 	</spread>
 	
 	<deliver id="d1" class="com.juncke.spreader.deliver.impl.HttpDeliver">
@@ -86,5 +88,19 @@
 			
 		</config>
 	</deliver>
+	
+	
+	<deliver id="cd58jiaxiao" class="com.juncke.spreader.deliver.impl.Cd58JiaxiaoDeliver">
+		<config>
+			<firefox>F:\Program Files\Mozilla Firefox\firefox.exe</firefox>
+			
+			<userId>ID${ts}</userId>
+			<password>www456mmm</password>
+			
+			<title>驾校收人, 3000, 开始时间:${ts}</title>
+			<content>开始时间:${ts}, ${content}</content>
+		</config>
+	</deliver>
+	
 	
 </spreads>

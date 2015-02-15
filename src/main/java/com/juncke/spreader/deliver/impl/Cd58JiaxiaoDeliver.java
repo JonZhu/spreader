@@ -47,7 +47,7 @@ public class Cd58JiaxiaoDeliver extends AbstractDeliver {
 			String userId = ExpressUtil.eval(config.elementText("userId"), objScope);
 			String passwd = config.elementText("password");
 			String titleValue = ExpressUtil.eval(config.elementText("title"), objScope);
-			String contentValue = config.elementText("content");
+			String contentValue = ExpressUtil.eval(config.elementText("content"), objScope);
 			
 			String mail = userId + "@163.com";
 			
